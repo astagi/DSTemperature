@@ -24,11 +24,15 @@ class DSTemperature {
     int        _nSensors;
 
     void resizeAddresses();
+    float getRawTemperature(int ds){}
 
   public:
     DSTemperature(int pin);
     void begin(void);
-
+    float getCelsius(int ds);
+    float getFahrenheit(int ds);
+    DSAddress getAddressFromIndex(int ds){}
+    int getIndexFromAddress(DSAddress dsaddr){}
 };
 
 #endif

@@ -36,5 +36,13 @@ void DSTemperature::resizeAddresses() {
 
 }
 
+float DSTemperature::getCelsius(int ds) {
+  return CELSIUS(getRawTemperature(ds));
+}
+
+float DSTemperature::getFahrenheit(int ds) {
+  return FAHRENHEIT(getRawTemperature(ds));
+}
+
 
 
