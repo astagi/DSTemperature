@@ -13,7 +13,17 @@
 #define ADDR_SIZE 8
 
 typedef struct{
+
   byte value[ADDR_SIZE];
+  
+  String repr() {
+    String rpr = "";
+    for (byte i = 0 ; i < ADDR_SIZE ; i++)
+      rpr += (String(value[i], HEX) + " ");
+    rpr.toUpperCase();
+    return rpr;
+  }
+
 }DSAddress;
 
 class DSTemperature {
@@ -32,7 +42,7 @@ class DSTemperature {
     float getCelsius(byte ds);
     float getFahrenheit(byte ds);
     byte getDeviceCount(void);
-    DSAddress getAddressFromIndex(byte ds){}
+    DSAddress getAddressFromIndex(byte ds);
     byte getIndexFromAddress(DSAddress dsaddr){}
 };
 

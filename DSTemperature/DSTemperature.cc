@@ -45,6 +45,10 @@ byte DSTemperature::getDeviceCount(void) {
   return _nDevices;
 }
 
+DSAddress DSTemperature::getAddressFromIndex(byte ds) {
+  return _addresses[ds];
+}
+
 float DSTemperature::getRawTemperature(byte ds) {
 
   byte data[12];
