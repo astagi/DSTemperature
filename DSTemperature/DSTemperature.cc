@@ -11,7 +11,8 @@ void DSTemperature::begin(void) {
 
   while (_wire->search(addr.value)) {
     if (OneWire::crc8(addr.value, 7) == addr.value[7]) {
-      resizeAddresses();
+      if (_nSensors != 0)
+        resizeAddresses();
       _addresses[_nSensors++] = addr;
     }
   }
@@ -23,9 +24,6 @@ void DSTemperature::begin(void) {
 }
 
 void DSTemperature::resizeAddresses() {
-
-  if (_nSensors == 0)
-    return;
 
   DSAddress* new_addresses = (DSAddress*)malloc(sizeof(DSAddress) * _nSensors);
   for (byte i = 0 ; i < _nSensors ; i++)
@@ -42,6 +40,3 @@ float DSTemperature::getCelsius(byte ds) {
 float DSTemperature::getFahrenheit(byte ds) {
   return FAHRENHEIT(getRawTemperature(ds));
 }
-
-
-
