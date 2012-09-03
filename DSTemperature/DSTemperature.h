@@ -21,18 +21,18 @@ class DSTemperature {
   private:
     OneWire*   _wire;
     DSAddress* _addresses;
-    int        _nSensors;
+    byte       _nSensors;
 
-    void resizeAddresses();
-    float getRawTemperature(int ds){}
+    void resizeAddresses(void);
+    float getRawTemperature(byte ds){}
 
   public:
-    DSTemperature(int pin);
+    DSTemperature(byte pin);
     void begin(void);
-    float getCelsius(int ds);
-    float getFahrenheit(int ds);
-    DSAddress getAddressFromIndex(int ds){}
-    int getIndexFromAddress(DSAddress dsaddr){}
+    float getCelsius(byte ds);
+    float getFahrenheit(byte ds);
+    DSAddress getAddressFromIndex(byte ds){}
+    byte getIndexFromAddress(DSAddress dsaddr){}
 };
 
 #endif
