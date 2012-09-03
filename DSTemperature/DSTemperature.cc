@@ -1,22 +1,40 @@
 #include "DSTemperature.h"
 
 DSTemperature::DSTemperature(int pin) {
-  this->wire = new OneWire(pin);
+  _wire = new OneWire(pin);
+  _addresses = (DSAddress*)malloc(sizeof(DSAddress)); 
 }
 
 void DSTemperature::begin(void) {
 
-  byte addr[8];
-  int i = 0;
+  DSAddress addr;
+  int i = 0, addr_i = 0;
 
-  while ((this->wire)->search(addr)) {
-    if (OneWire::crc8(addr, 7) == addr[7]) {
-      //Store 'addr'esses in a vector
+  while (_wire->search(addr.value)) {
+    if (OneWire::crc8(addr.value, 7) == addr.value[7]) {
+      resizeAddresses();
+      _addresses[_nSensors++] = addr;
     }
   }
 
-  (this->wire)->reset_search();
+  _wire->reset_search();
   delay(250);
   return;
 
 }
+
+void DSTemperature::resizeAddresses() {
+
+  if (_nSensors == 0)
+    return;
+
+  DSAddress* new_addresses = (DSAddress*)malloc(sizeof(DSAddress) * _nSensors);
+  for (int i = 0 ; i < _nSensors ; i++)
+    new_addresses[i] = _addresses[i];
+  free(_addresses);
+  _addresses = new_addresses;
+
+}
+
+
+

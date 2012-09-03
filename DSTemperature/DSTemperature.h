@@ -10,10 +10,20 @@
 #define DS18B20 0x28
 #define DS1822  0x22
 
+#define ADDR_SIZE 8
+
+typedef struct{
+  byte value[ADDR_SIZE];
+}DSAddress;
+
 class DSTemperature {
 
   private:
-    OneWire* wire;
+    OneWire*   _wire;
+    DSAddress* _addresses;
+    int        _nSensors;
+
+    void resizeAddresses();
 
   public:
     DSTemperature(int pin);
