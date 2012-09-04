@@ -21,6 +21,7 @@ typedef struct{
 class DSTemperature {
 
   private:
+
     OneWire*   _wire;
     DSAddress* _addresses;
     byte       _nDevices;
@@ -29,14 +30,17 @@ class DSTemperature {
     float getRawTemperature(byte ds);
 
   public:
+
     DSTemperature(byte pin);
     void begin(void);
     float getCelsius(byte ds);
     float getFahrenheit(byte ds);
     byte getDeviceCount(void);
-    DSAddress getAddressFromIndex(byte ds);
+    byte getAddressFromIndex(DSAddress* dsaddr, byte ds);
+    byte getAddressFromIndex(byte addr[], byte ds);
     byte getIndexFromAddress(DSAddress dsaddr);
     byte getIndexFromAddress(byte addr[]);
+
 };
 
 #endif

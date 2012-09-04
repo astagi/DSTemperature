@@ -24,10 +24,14 @@ void sendAddress(DSAddress ds_addr) {
 }
 
 void loop(void) {
+  DSAddress ds_addr;
   for(int i = 0 ; i < ds.getDeviceCount() ; i++) {
     Serial.println("-------------------------------------------");
     Serial.print("DEVICE ADDRESS:    ");
-    sendAddress(ds.getAddressFromIndex(i));
+    if (ds.getAddressFromIndex(&ds_addr, i))
+      sendAddress(ds_addr);
+    else
+      Serial.println("Error!");
     Serial.print("TEMPERATURE VALUE: ");
     Serial.print(ds.getCelsius(i));
     Serial.println(" C");

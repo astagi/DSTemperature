@@ -47,10 +47,20 @@ byte DSTemperature::getDeviceCount(void) {
   return _nDevices;
 }
 
-DSAddress DSTemperature::getAddressFromIndex(byte ds) {
-  if (ds >= 0 && ds < _nDevices)
-    return _addresses[ds];
-  return -1;
+byte DSTemperature::getAddressFromIndex(DSAddress* dsaddr, byte ds) {
+  return getAddressFromIndex(dsaddr->value, ds);
+}
+
+byte DSTemperature::getAddressFromIndex(byte addr[], byte ds) {
+
+  if (ds >= 0 && ds < _nDevices) {
+    for (byte i = 0 ; i < 8 ; i++)
+      addr[i] = _addresses[ds].value[i];
+    return 1;
+  }
+
+  return 0;
+
 }
 
 byte DSTemperature::getIndexFromAddress(DSAddress dsaddr) {
@@ -58,7 +68,9 @@ byte DSTemperature::getIndexFromAddress(DSAddress dsaddr) {
 }
 
 byte DSTemperature::getIndexFromAddress(byte addr[]) {
+ 
   byte i, j;
+
   for (i = 0 ; i < _nDevices ; i++) {
     for (j = 0 ; j < 8 ; j++) {
       if (_addresses[i].value[j] ^ addr[j] != 0x00)
