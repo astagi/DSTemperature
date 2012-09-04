@@ -17,7 +17,7 @@ How to use it with the IDE
 
 3. Include DSTemperature and OneWire in your code using Sketch -> Import Library -> NAME_OF_THE_LIBRARY.
 
-4. Open Examples/ReadAll.ino sketch to start!
+4. Open DSTemperature/examples/ReadAll.ino sketch to start!
 
 Licence
 -------
