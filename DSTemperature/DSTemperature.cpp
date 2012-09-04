@@ -48,10 +48,32 @@ byte DSTemperature::getDeviceCount(void) {
 }
 
 DSAddress DSTemperature::getAddressFromIndex(byte ds) {
-  return _addresses[ds];
+  if (ds >= 0 && ds < _nDevices)
+    return _addresses[ds];
+  return -1;
+}
+
+byte DSTemperature::getIndexFromAddress(DSAddress dsaddr) {
+  return getIndexFromAddress(dsaddr.value);
+}
+
+byte DSTemperature::getIndexFromAddress(byte addr[]) {
+  byte i, j;
+  for (i = 0 ; i < _nDevices ; i++) {
+    for (j = 0 ; j < 8 ; j++) {
+      if (_addresses[i].value[j] ^ addr[j] != 0x00)
+        break;
+      if (j == 7)
+        return i;
+    }
+  }
+  return -1;
 }
 
 float DSTemperature::getRawTemperature(byte ds) {
+
+  if (!(ds >= 0 && ds < _nDevices))
+    return -3000;
 
   byte data[12];
 
