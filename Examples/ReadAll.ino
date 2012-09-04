@@ -5,7 +5,8 @@
   on the wire bus on pin 5 and send them via serial port.
 */
 
-#include "DSTemperature.h"
+#include <OneWire.h>
+#include <DSTemperature.h>
 
 DSTemperature ds(5);  // on pin 5
 
