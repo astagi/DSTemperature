@@ -15,9 +15,9 @@ void setup(void) {
   ds.begin();
 }
 
-void sendAddress(DSAddress ds) {
+void sendAddress(DSAddress ds_addr) {
   for(int i = 0 ; i < 8 ; i++) {
-    Serial.print(ds.value[i], HEX);
+    Serial.print(ds_addr.value[i], HEX);
     Serial.print(" ");
   }
   Serial.println();
