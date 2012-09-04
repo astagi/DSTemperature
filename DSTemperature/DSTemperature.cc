@@ -9,6 +9,8 @@ void DSTemperature::begin(void) {
 
   DSAddress addr;
 
+  _wire->reset_search();
+
   while (_wire->search(addr.value)) {
     if (OneWire::crc8(addr.value, 7) == addr.value[7]) {
       if (_nDevices != 0)
